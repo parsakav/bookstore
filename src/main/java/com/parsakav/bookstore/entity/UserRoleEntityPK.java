@@ -12,17 +12,17 @@ public class UserRoleEntityPK implements Serializable {
     @Column(name = "user_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private String userId;
     @Column(name = "role_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

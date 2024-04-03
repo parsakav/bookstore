@@ -20,15 +20,15 @@ public class UserEntity {
     @Basic
     @Column(name = "addrsss")
     private String addrsss;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "phonenumber")
-    private int phonenumber;
+    private String phonenumber;
     @Basic
     @Column(name = "postalcode")
     private int postalcode;
     @OneToMany(mappedBy = "userByUserId")
-    private Collection<UserRoleEntity> userRolesByPhonenumber;
+    private Collection<UserRoleEntity> userRoleEntities;
 
     public String getEmail() {
         return email;
@@ -62,11 +62,11 @@ public class UserEntity {
         this.addrsss = addrsss;
     }
 
-    public int getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(int phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 
@@ -91,11 +91,11 @@ public class UserEntity {
         return Objects.hash(email, password, fullname, addrsss, phonenumber, postalcode);
     }
 
-    public Collection<UserRoleEntity> getUserRolesByPhonenumber() {
-        return userRolesByPhonenumber;
+    public Collection<UserRoleEntity> getUserRoleEntities() {
+        return userRoleEntities;
     }
 
-    public void setUserRolesByPhonenumber(Collection<UserRoleEntity> userRolesByPhonenumber) {
-        this.userRolesByPhonenumber = userRolesByPhonenumber;
+    public void setUserRoleEntities(Collection<UserRoleEntity> userRoleEntities) {
+        this.userRoleEntities = userRoleEntities;
     }
 }

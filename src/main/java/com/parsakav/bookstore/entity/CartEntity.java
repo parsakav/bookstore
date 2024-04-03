@@ -15,7 +15,7 @@ public class CartEntity {
     private int cartId;
     @Basic
     @Column(name = "user_phone")
-    private int userPhone;
+    private String userPhone;
     @Basic
     @Column(name = "time")
     private Date time;
@@ -30,11 +30,11 @@ public class CartEntity {
         this.cartId = cartId;
     }
 
-    public int getUserPhone() {
+    public String getUserPhone() {
         return userPhone;
     }
 
-    public void setUserPhone(int userPhone) {
+    public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
 

@@ -11,7 +11,7 @@ public class UserRoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id")
-    private int userId;
+    private String userId;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "role_id")
@@ -23,11 +23,11 @@ public class UserRoleEntity {
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
     private RoleEntity roleByRoleId;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
