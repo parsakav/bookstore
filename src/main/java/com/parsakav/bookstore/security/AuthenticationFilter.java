@@ -1,12 +1,14 @@
 package com.parsakav.bookstore.security;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
+import com.google.gson.Gson;
 import com.parsakav.bookstore.request.UserLoginRequest;
 import com.parsakav.bookstore.service.RoleService;
 
@@ -73,10 +75,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 					.signWith(SecurityConstant.getSigningKey())
 					.compact();
 
+
+
 	/*	UserDetailsService userService=(UserDetailsService) SpringApplicationContext.getBean("UserDetailsImpl");
 			UserDto user=userService.getUser(username);*/
 			response.addHeader(SecurityConstant.HEADER_STRING, SecurityConstant.TOKEN_PREFIX+token);
-/*
+			response.setContentType("application/json");
+			String json=new Gson().toJson(authResult.getAuthorities());
+			try(PrintWriter pw=response.getWriter()){
+				pw.println(json);
+		}
+			/*
 			response.addHeader("UserId", user.getUserId());
 */
 
