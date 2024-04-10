@@ -1,17 +1,12 @@
 package com.parsakav.bookstore.security;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.parsakav.bookstore.SpringApplicationContext;
 import com.parsakav.bookstore.service.RoleService;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,10 +14,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import io.jsonwebtoken.Jwts;
-import org.springframework.stereotype.Component;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.management.relation.Role;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -55,10 +50,8 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
 				String username = Jwts.parserBuilder().setSigningKey(SecurityConstant.getSigningKey()).build()
 						.parseClaimsJws(header.replace("Bearer", "").trim()).getBody().getSubject();
-				// TODO Auto-generated method stub
 				if (username != null) {
 					List<GrantedAuthority> roles = new ArrayList<>();
-					System.out.println(roleService.findRole(username));
 					roles.add(new SimpleGrantedAuthority(roleService.findRole(username)));
 					return new UsernamePasswordAuthenticationToken(username, null, roles);
 				}

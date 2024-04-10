@@ -8,13 +8,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "user", schema = "bookstore", catalog = "")
 public class UserEntity {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "user_id")
 private long id;
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @Basic
     @Column(name = "password")
@@ -23,8 +23,8 @@ private long id;
     @Column(name = "fullname")
     private String fullname;
     @Basic
-    @Column(name = "addrsss")
-    private String addrsss;
+    @Column(name = "address")
+    private String address;
 
 
     @Column(name = "phonenumber",unique = true)
@@ -64,12 +64,13 @@ private long id;
         this.fullname = fullname;
     }
 
-    public String getAddrsss() {
-        return addrsss;
+
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddrsss(String addrsss) {
-        this.addrsss = addrsss;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhonenumber() {
@@ -93,12 +94,12 @@ private long id;
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return phonenumber == that.phonenumber && postalcode == that.postalcode && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(fullname, that.fullname) && Objects.equals(addrsss, that.addrsss);
+        return phonenumber == that.phonenumber && postalcode == that.postalcode && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(fullname, that.fullname) && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, password, fullname, addrsss, phonenumber, postalcode);
+        return Objects.hash(email, password, fullname, address, phonenumber, postalcode);
     }
 
     public Collection<UserRoleEntity> getUserRoleEntities() {

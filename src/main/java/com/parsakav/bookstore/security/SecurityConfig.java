@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
@@ -41,10 +39,12 @@ public class SecurityConfig {
 					try {
 
 						c.requestMatchers(HttpMethod.POST, SecurityConstant.SIGN_UP_URL)
-										.permitAll()
-								.requestMatchers(  "/v3/api-docs/**","/swagger-ui/**").permitAll()
+								.permitAll()
+								.requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
 								.requestMatchers("/api/comment/**").permitAll()
+								.requestMatchers("/error").permitAll()
 								.requestMatchers(HttpMethod.POST, "/api/business").permitAll()
+								.requestMatchers(HttpMethod.POST, "/users").permitAll()
 								.requestMatchers(HttpMethod.GET,"/api/business").permitAll()
 								.requestMatchers("/api/utils/**").permitAll()
 
