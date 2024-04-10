@@ -28,7 +28,7 @@ private long id;
 
 
     @Column(name = "phonenumber",unique = true)
-    private String phonenumber;
+    private String phoneNumber;
     @Basic
     @Column(name = "postalcode",unique = true)
     private int postalcode;
@@ -73,12 +73,12 @@ private long id;
         this.address = address;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public int getPostalcode() {
@@ -94,12 +94,12 @@ private long id;
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return phonenumber == that.phonenumber && postalcode == that.postalcode && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(fullname, that.fullname) && Objects.equals(address, that.address);
+        return phoneNumber == that.phoneNumber && postalcode == that.postalcode && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(fullname, that.fullname) && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, password, fullname, address, phonenumber, postalcode);
+        return Objects.hash(email, password, fullname, address, phoneNumber, postalcode);
     }
 
     public Collection<UserRoleEntity> getUserRoleEntities() {

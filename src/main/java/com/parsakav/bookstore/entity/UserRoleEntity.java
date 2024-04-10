@@ -23,6 +23,20 @@ public class UserRoleEntity {
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
     private RoleEntity roleByRoleId;
 
+    public UserRoleEntity(int roleId){
+this.roleId=roleId;
+    }
+    public UserRoleEntity(){
+
+    }
+
+    public UserRoleEntity(String userId, int roleId, UserEntity userByUserId, RoleEntity roleByRoleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+        this.userByUserId = userByUserId;
+        this.roleByRoleId = roleByRoleId;
+    }
+
     public String getUserId() {
         return userId;
     }

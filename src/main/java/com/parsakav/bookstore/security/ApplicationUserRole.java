@@ -1,15 +1,11 @@
 package com.parsakav.bookstore.security;
 
-public enum ApplicationUserRole {
+public class ApplicationUserRole {
 
-   ADMIN("ROLE_ADMIN"),USER("ROLE_USER");
+  public final static String  ADMIN="ROLE_ADMIN";
+    public final static String   USER="ROLE_USER";
+    public final static int  ADMIN_ID=1;
+    public final static int   USER_ID=2;
 
-   private String role;
-    ApplicationUserRole(String role_user) {
-        role=role_user;
-    }
 
-    public String getRole() {
-        return role;
-    }
 }

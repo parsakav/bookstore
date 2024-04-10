@@ -1,7 +1,6 @@
 package com.parsakav.bookstore.service;
 
 import com.parsakav.bookstore.entity.UserEntity;
-import com.parsakav.bookstore.entity.UserRoleEntity;
 import com.parsakav.bookstore.repository.UserEntityRepository;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +28,8 @@ public class UserDetailsImpl implements  UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       UserEntity user= userEntityRepository.getUserEntityWithRoles(username)
+
+        UserEntity user= userEntityRepository.getUserEntityWithRoles(username)
                .orElseThrow(()->{
            throw new UsernameNotFoundException("User not found");
 
@@ -42,7 +41,7 @@ public class UserDetailsImpl implements  UserDetailsService {
                 .collect(Collectors.toList());
 
 
-           return new User(String.valueOf(user.getPhonenumber()), user.getPassword(), authority);
+           return new User(String.valueOf(user.getPhoneNumber()), user.getPassword(), authority);
 
 
 
