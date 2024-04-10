@@ -16,10 +16,10 @@ public class UserRoleEntity {
     @Id
     @Column(name = "role_id")
     private int roleId;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "phonenumber", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private UserEntity userByUserId;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
     private RoleEntity roleByRoleId;
 

@@ -1,6 +1,7 @@
 package com.parsakav.bookstore.request;
 
 public class UserLoginRequest {
+
     private String phoneNumber;
     private String password;
 
