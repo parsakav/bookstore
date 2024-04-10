@@ -2,7 +2,7 @@ package com.parsakav.bookstore.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.*;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,12 +13,16 @@ public class CartEntity {
     @Id
     @Column(name = "cart_id")
     private int cartId;
-    @Basic
-    @Column(name = "user_phone")
-    private String userPhone;
+
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "", nullable = false)
+
+    private UserEntity user;
     @Basic
     @Column(name = "time")
-    private Date time;
+
+    private LocalDateTime time;
     @OneToMany(mappedBy = "cartByCartId")
     private Collection<CartCartitemEntity> cartCartitemsByCartId;
 
@@ -30,19 +34,14 @@ public class CartEntity {
         this.cartId = cartId;
     }
 
-    public String getUserPhone() {
-        return userPhone;
-    }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
 
-    public Date getTime() {
+
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
@@ -51,12 +50,12 @@ public class CartEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartEntity that = (CartEntity) o;
-        return cartId == that.cartId && userPhone == that.userPhone && Objects.equals(time, that.time);
+        return cartId == that.cartId && user.equals(that.user) && Objects.equals(time, that.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cartId, userPhone, time);
+        return Objects.hash(cartId, user.getId(), time);
     }
 
     public Collection<CartCartitemEntity> getCartCartitemsByCartId() {

@@ -8,6 +8,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "user", schema = "bookstore", catalog = "")
 public class UserEntity {
+    @GeneratedValue
+    @Id
+    @Column(name = "user_id")
+private long id;
+
     @Basic
     @Column(name = "email")
     private String email;
@@ -21,12 +26,17 @@ public class UserEntity {
     @Column(name = "addrsss")
     private String addrsss;
 
-    @Id
-    @Column(name = "phonenumber")
+
+    @Column(name = "phonenumber",unique = true)
     private String phonenumber;
     @Basic
-    @Column(name = "postalcode")
+    @Column(name = "postalcode",unique = true)
     private int postalcode;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<CartEntity> carts;
+
+
     @OneToMany(mappedBy = "userByUserId")
     private Collection<UserRoleEntity> userRoleEntities;
 
@@ -97,5 +107,21 @@ public class UserEntity {
 
     public void setUserRoleEntities(Collection<UserRoleEntity> userRoleEntities) {
         this.userRoleEntities = userRoleEntities;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Collection<CartEntity> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Collection<CartEntity> carts) {
+        this.carts = carts;
     }
 }
