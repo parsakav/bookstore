@@ -11,7 +11,7 @@ public class UserRegisterRequest {
     private String address;
 
 
-    private String phonenumber;
+    private String phoneNumber;
 
     private int postalcode;
 
@@ -47,12 +47,12 @@ public class UserRegisterRequest {
         this.address = address;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public int getPostalcode() {

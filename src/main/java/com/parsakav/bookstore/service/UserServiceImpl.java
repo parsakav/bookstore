@@ -1,7 +1,7 @@
 package com.parsakav.bookstore.service;
 
+import com.parsakav.bookstore.entity.RoleEntity;
 import com.parsakav.bookstore.entity.UserEntity;
-import com.parsakav.bookstore.entity.UserRoleEntity;
 import com.parsakav.bookstore.repository.UserEntityRepository;
 import com.parsakav.bookstore.request.UserRegisterRequest;
 import com.parsakav.bookstore.response.UserRegisterResponse;
@@ -23,11 +23,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserRegisterResponse save(UserRegisterRequest userRegisterRequest) {
         userRegisterRequest.setPassword(passwordEncoder.encode(userRegisterRequest.getPassword()));
-
         UserEntity user = new UserEntity();
-        user.setUserRoleEntities(List.of(new UserRoleEntity(ApplicationUserRole.USER_ID)));
-
         BeanUtils.copyProperties(userRegisterRequest, user);
+
+        RoleEntity userRoleEntity = new RoleEntity(ApplicationUserRole.USER_ID,
+                ApplicationUserRole.USER);
+
+        user.setUserRoleEntities(List.of(userRoleEntity));
+
         user = userEntityRepository.save(user);
         UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
         BeanUtils.copyProperties(user, userRegisterResponse);

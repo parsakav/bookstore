@@ -1,6 +1,6 @@
 package com.parsakav.bookstore.response;
 
-import com.parsakav.bookstore.entity.UserRoleEntity;
+import com.parsakav.bookstore.entity.RoleEntity;
 
 import java.util.Collection;
 
@@ -14,11 +14,11 @@ public class UserLoginResponse {
     private String addrsss;
 
 
-    private String phonenumber;
+    private String phoneNumber;
 
     private int postalcode;
 
-    private Collection<UserRoleEntity> userRoleEntities;
+    private Collection<RoleEntity> userRoleEntities;
 
     public String getEmail() {
         return email;
@@ -52,12 +52,12 @@ public class UserLoginResponse {
         this.addrsss = addrsss;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public int getPostalcode() {
@@ -68,11 +68,11 @@ public class UserLoginResponse {
         this.postalcode = postalcode;
     }
 
-    public Collection<UserRoleEntity> getUserRoleEntities() {
+    public Collection<RoleEntity> getUserRoleEntities() {
         return userRoleEntities;
     }
 
-    public void setUserRoleEntities(Collection<UserRoleEntity> userRoleEntities) {
+    public void setUserRoleEntities(Collection<RoleEntity> userRoleEntities) {
         this.userRoleEntities = userRoleEntities;
     }
 }

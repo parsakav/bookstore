@@ -2,7 +2,6 @@ package com.parsakav.bookstore.service;
 
 import com.parsakav.bookstore.entity.UserEntity;
 import com.parsakav.bookstore.repository.UserEntityRepository;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -37,7 +36,7 @@ public class UserDetailsImpl implements  UserDetailsService {
 
         List<GrantedAuthority> authority =  user.getUserRoleEntities()
                 .stream()
-                .map(e->new SimpleGrantedAuthority(e.getRoleByRoleId().getRoleName()))
+                .map(e -> new SimpleGrantedAuthority(e.getRoleName()))
                 .collect(Collectors.toList());
 
 

@@ -8,10 +8,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "user", schema = "bookstore", catalog = "")
 public class UserEntity {
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "user_id")
-private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private long id;
 
     @Basic
     @Column(name = "email", unique = true)
@@ -27,18 +28,21 @@ private long id;
     private String address;
 
 
-    @Column(name = "phonenumber",unique = true)
+    @Column(name = "phonenumber", unique = true)
     private String phoneNumber;
     @Basic
-    @Column(name = "postalcode",unique = true)
+    @Column(name = "postalcode", unique = true)
     private int postalcode;
 
     @OneToMany(mappedBy = "user")
     private Collection<CartEntity> carts;
 
 
-    @OneToMany(mappedBy = "userByUserId")
-    private Collection<UserRoleEntity> userRoleEntities;
+    @ManyToMany()
+    @JoinTable(name = "USER_ROLE_",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<RoleEntity> userRoleEntities;
 
     public String getEmail() {
         return email;
@@ -102,13 +106,7 @@ private long id;
         return Objects.hash(email, password, fullname, address, phoneNumber, postalcode);
     }
 
-    public Collection<UserRoleEntity> getUserRoleEntities() {
-        return userRoleEntities;
-    }
 
-    public void setUserRoleEntities(Collection<UserRoleEntity> userRoleEntities) {
-        this.userRoleEntities = userRoleEntities;
-    }
 
     public long getId() {
         return id;
@@ -124,5 +122,13 @@ private long id;
 
     public void setCarts(Collection<CartEntity> carts) {
         this.carts = carts;
+    }
+
+    public Collection<RoleEntity> getUserRoleEntities() {
+        return userRoleEntities;
+    }
+
+    public void setUserRoleEntities(Collection<RoleEntity> userRoleEntities) {
+        this.userRoleEntities = userRoleEntities;
     }
 }
