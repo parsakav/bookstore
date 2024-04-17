@@ -15,8 +15,16 @@ public class RoleEntity {
     @Basic
     @Column(name = "role_name")
     private String roleName;
-    @OneToMany(mappedBy = "roleByRoleId")
-    private Collection<UserRoleEntity> userRolesByRoleId;
+    @ManyToMany(mappedBy = "userRoleEntities")
+    private Collection<UserEntity> userRolesByRoleId;
+
+    public RoleEntity(int roleId, String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+    }
+
+    public RoleEntity() {
+    }
 
     public int getRoleId() {
         return roleId;
@@ -47,11 +55,11 @@ public class RoleEntity {
         return Objects.hash(roleId, roleName);
     }
 
-    public Collection<UserRoleEntity> getUserRolesByRoleId() {
+    public Collection<UserEntity> getUserRolesByRoleId() {
         return userRolesByRoleId;
     }
 
-    public void setUserRolesByRoleId(Collection<UserRoleEntity> userRolesByRoleId) {
+    public void setUserRolesByRoleId(Collection<UserEntity> userRolesByRoleId) {
         this.userRolesByRoleId = userRolesByRoleId;
     }
 }
