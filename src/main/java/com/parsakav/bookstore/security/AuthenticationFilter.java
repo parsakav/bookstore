@@ -1,15 +1,15 @@
 package com.parsakav.bookstore.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.parsakav.bookstore.request.UserLoginRequest;
-import com.parsakav.bookstore.service.RoleService;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.parsakav.bookstore.SpringApplicationContext;
+import com.parsakav.bookstore.dto.UserDto;
+import com.parsakav.bookstore.service.UserService;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,8 +23,7 @@ import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private final AuthenticationManager authenticationManager;
-	@Autowired
-	private RoleService roleService;
+
 
 	public AuthenticationFilter(AuthenticationManager authenticationManager) {
 		super();
@@ -36,8 +35,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			throws AuthenticationException {
 		try {
 
-			UserLoginRequest creds = new ObjectMapper().readValue(request.getInputStream(),
-					UserLoginRequest.class);
+			UserDto.LoginIn creds = new ObjectMapper().readValue(request.getInputStream(),
+					UserDto.LoginIn.class);
 
 
 			return authenticationManager.authenticate(
@@ -54,9 +53,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-		Authentication authResult) throws IOException, ServletException {
+											Authentication authResult) throws IOException, ServletException {
+		UserService userService = SpringApplicationContext.getBean(UserService.class);
 
-			String username=((User) authResult.getPrincipal()).getUsername();
+		String username = ((User) authResult.getPrincipal()).getUsername();
 		String token = Jwts.builder().setSubject(username)
 				.setExpiration(dateAfterNow(SecurityConstant.EXPIRATION_TIME))
 				.signWith(SecurityConstant.getSigningKey())
@@ -72,14 +72,20 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		System.out.println(user.getPassword());
 		System.out.println(user.getUsername());
 		response.setContentType("application/json");
-		String json = new Gson().toJson(authResult.getAuthorities());
+		UserDto.Output byPhonenumber = userService.findByPhonenumber(username);
+	/*	Gson gson = new GsonBuilder().setPrettyPrinting()
+				.excludeFieldsWithoutExposeAnnotation()
+				.create();
+		String json = new Gson().toJson(byPhonenumber);*/
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+
+		String json = ow.writeValueAsString(byPhonenumber);
 		try (PrintWriter pw = response.getWriter()) {
 			pw.println(json);
 		}
 			/*
 			response.addHeader("UserId", user.getUserId());
 */
-
 
 
 	}

@@ -12,15 +12,20 @@ public class SpringApplicationContext implements ApplicationContextAware{
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		// TODO Auto-generated method stub
-		CONTEXT=applicationContext;
-		
-	}
-	
-	
-	public static Object getBean(String beanName) {
-		return CONTEXT.getBean(beanName);
-		
-	}
+        // TODO Auto-generated method stub
+        CONTEXT = applicationContext;
+
+    }
+
+
+    public static Object getBean(String beanName) {
+        return CONTEXT.getBean(beanName);
+
+    }
+
+    public static <T> T getBean(Class<T> clazz) {
+        return CONTEXT.getBean(clazz);
+
+    }
 
 }

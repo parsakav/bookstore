@@ -1,9 +1,10 @@
 package com.parsakav.bookstore.service;
 
-import com.parsakav.bookstore.request.UserRegisterRequest;
-import com.parsakav.bookstore.response.UserRegisterResponse;
+import com.parsakav.bookstore.dto.UserDto;
 
 public interface UserService {
 
-    public UserRegisterResponse save(UserRegisterRequest request);
+    public UserDto.Output save(UserDto.Input request);
+
+    public UserDto.Output findByPhonenumber(String phoneNumber);
 }

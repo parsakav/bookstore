@@ -13,4 +13,6 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, String> 
 
     @Query(value = "from UserEntity ue  join fetch  ue.userRoleEntities where ue.phoneNumber=:phoneNumber")
     public Optional<UserEntity> getUserEntityWithRoles(String phoneNumber);
+
+
 }

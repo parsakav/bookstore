@@ -1,10 +1,10 @@
 package com.parsakav.bookstore.controller;
 
 
-import com.parsakav.bookstore.request.UserRegisterRequest;
-import com.parsakav.bookstore.response.UserRegisterResponse;
+import com.parsakav.bookstore.dto.UserDto;
 import com.parsakav.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +20,9 @@ public class UserController {
 
     @PreAuthorize("!isAuthenticated()")
     @PostMapping
-    public UserRegisterResponse register(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public ResponseEntity<UserDto.Output> register(@RequestBody UserDto.Input userRegisterRequest) {
 
-        return userService.save(userRegisterRequest);
+        return ResponseEntity.ok(userService.save(userRegisterRequest));
 
     }
 
